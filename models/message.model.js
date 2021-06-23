@@ -1,10 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
-  const Message = sequelize.define({
+  const Message = sequelize.define("messages", {
     senderId: {
-      type: DataTypes.UUID,
+      type: Sequelize.UUID,
     },
     receiverId: {
-      type: DataTypes.UUID,
+      type: Sequelize.UUID,
     },
     text: {
       type: Sequelize.STRING,
