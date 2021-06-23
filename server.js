@@ -3,6 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
+db.sequelize.sync({
+  //force: true
+});
+//.then(() => {
+//  console.log(`resync DB`);
+//});
+
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
