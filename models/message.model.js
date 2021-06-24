@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       replyId: {
         allowNull: true,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
     },
     {
