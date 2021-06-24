@@ -29,6 +29,16 @@ db.sequelize = sequelize;
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.message = require("./message.model.js")(sequelize, Sequelize);
 
+db.message.hasMany(db.message, {
+  foreignKey: "replyId",
+  as: "replier",
+});
+
+db.message.belongsTo(db.message, {
+  foreignKey: "replyId",
+  as: "targetReply",
+});
+
 db.message.belongsTo(db.user, {
   as: "sender",
   foreignKey: "senderId",

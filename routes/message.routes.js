@@ -9,6 +9,7 @@ module.exports = function (app) {
     next();
   });
 
+  app.post("/message/reply/:messageId", controller.replyMessage);
   app.post("/message/:receiverId", controller.sendMessage);
   app.post("/message", controller.listAllMessage);
   app.get("/users", controller.listAllConversation);

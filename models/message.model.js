@@ -16,6 +16,10 @@ module.exports = (sequelize, Sequelize) => {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
       },
+      replyId: {
+        allowNull: true,
+        type: Sequelize.UUID,
+      },
     },
     {
       timestamps: true,

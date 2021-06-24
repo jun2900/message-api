@@ -19,6 +19,14 @@ exports.listAllMessage = (req, res) => {
     attributes: ["id", "createdAt", "text"],
     include: [
       {
+        model: Message,
+        as: "replier",
+      },
+      {
+        model: Message,
+        as: "targetReply",
+      },
+      {
         model: User,
         as: "sender",
       },
@@ -84,5 +92,16 @@ exports.listAllConversation = (req, res) => {
     });
 
     res.send({ connected: result });
+  });
+};
+
+exports.replyMessage = (req, res) => {
+  Message.create({
+    senderId: req.body.senderId,
+    receiverId: req.body.receiverId,
+    text: req.body.text,
+    replyId: req.params.messageId,
+  }).then((msg) => {
+    res.send(msg);
   });
 };
