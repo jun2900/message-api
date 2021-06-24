@@ -11,4 +11,5 @@ module.exports = function (app) {
 
   app.post("/message/:receiverId", controller.sendMessage);
   app.post("/message", controller.listAllMessage);
+  app.get("/users", controller.listAllConversation);
 };
