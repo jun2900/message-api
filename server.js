@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
 require("./routes/message.routes")(app);
+require("./routes/auth.routes")(app);
 
 const PORT = process.env.PORT;
 

@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 
 exports.sendMessage = (req, res) => {
   Message.create({
-    senderId: req.body.senderId,
+    senderId: req.userId,
     receiverId: req.params.receiverId,
     text: req.body.text,
   }).then((msg) => {
@@ -29,15 +29,16 @@ exports.listAllMessage = (req, res) => {
       {
         model: User,
         as: "sender",
+        attributes: ["id", "username"],
       },
-      { model: User, as: "receiver" },
+      { model: User, as: "receiver", attributes: ["id", "username"] },
     ],
     where: {
       senderId: {
-        [Op.or]: [req.body.senderId, req.body.receiverId],
+        [Op.or]: [req.body.targetUserId, req.userId],
       },
       receiverId: {
-        [Op.or]: [req.body.senderId, req.body.receiverId],
+        [Op.or]: [req.body.targetUserId, req.userId],
       },
     },
   }).then((msg) => {
@@ -49,7 +50,7 @@ exports.listAllConversation = (req, res) => {
   Message.findAll({
     attributes: ["senderId", "receiverId", "text", "createdAt"],
     where: {
-      [Op.or]: [{ senderId: req.body.id }, { receiverId: req.body.id }],
+      [Op.or]: [{ senderId: req.userId }, { receiverId: req.userId }],
     },
     order: [["createdAt", "DESC"]],
   }).then((msg) => {
@@ -76,13 +77,13 @@ exports.listAllConversation = (req, res) => {
     });
 
     temp.forEach((user) => {
-      if (user.senderId != req.body.id) {
+      if (user.senderId != req.userId) {
         result.push({
           username: user.senderId,
-          text: user.text,
+          lastMessage: user.text,
           messageDate: user.createdAt,
         });
-      } else if (user.receiverId != req.body.id) {
+      } else if (user.receiverId != req.userId) {
         result.push({
           username: user.receiverId,
           text: user.text,
@@ -97,7 +98,7 @@ exports.listAllConversation = (req, res) => {
 
 exports.replyMessage = (req, res) => {
   Message.create({
-    senderId: req.body.senderId,
+    senderId: req.userId,
     receiverId: req.body.receiverId,
     text: req.body.text,
     replyId: req.params.messageId,
