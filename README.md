@@ -7,7 +7,8 @@ Steps to install this API on local computer:
    - [Download link](https://docs.docker.com/docker-for-mac/install/) for **mac**
    - For linux u need to download and install docker according distribution and [docker compose](https://docs.docker.com/compose/install/)
 2. Clone this repo
-3. Go to this clone directory on your local machine and on the root folder change **.env.sample** to **.env**
-4. Build all the docker image using this command on the project root folder in your terminal:
+3. (Optional) Kill all service that are running on port 3306 (usually mysql service) and port 3000 on your local computer
+4. Go to this clone directory on your local machine and on the root folder change **.env.sample** to **.env**
+5. Build all the docker image using this command on the project root folder in your terminal:
    > docker-compose up
-5. Now you can access the api. Here is the Postman collection regarding the api https://www.getpostman.com/collections/37933fa84d8925db2a4d
+6. Now you can access the api. Here is the Postman collection regarding the api https://www.getpostman.com/collections/37933fa84d8925db2a4d
